@@ -349,6 +349,44 @@ Boas práticas recomendadas ao mantenedor:
 
 ---
 
+## Publicação no GitHub
+
+O repositório está preparado para ser publicado em um repositório **privado** chamado
+`shopee-afiliados-n8n`. Procedimento recomendado (o token nunca deve ser digitado em
+scripts, histórico do terminal ou neste arquivo):
+
+```bash
+# 1. Instalar o GitHub CLI (uma vez)
+winget install --id GitHub.cli
+
+# 2. Autenticar (fluxo interativo, aberto por você)
+gh auth login
+
+# 3. Confirmar a conta autenticada
+gh auth status
+
+# 4. Publicar (a partir da pasta do projeto)
+cd shopee-afiliados-n8n
+gh repo create shopee-afiliados-n8n --private --source=. --remote=origin --push
+```
+
+Antes de qualquer `push`, rode uma varredura de segredos:
+
+```bash
+git ls-files | xargs grep -nE "bot[0-9]{6,}:|[A-Z0-9]{25,}|-----BEGIN|sk-[A-Za-z0-9]{20,}|gh[pousr]_[A-Za-z0-9]{20,}"
+```
+
+Regras:
+
+- O repositório deve permanecer **privado**. Torná-lo público exige decisão explícita
+  do mantenedor.
+- Nunca faça `push` de um export cru da produção: sanitize antes (procure por
+  `appSecret`, `appId`, `chatId` e `bot<id>:<token>`).
+- Se um segredo já tiver sido commitado, removê-lo no próximo commit **não basta** —
+  revogue/rotacione a chave e limpe o histórico antes de qualquer `push`.
+
+---
+
 ## Licença e uso
 
 Projeto pessoal de automação, mantido como backup, documentação e portfólio.
