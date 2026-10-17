@@ -329,8 +329,11 @@ Medidas adotadas neste repositório:
   (`exports/brutos/`) que ainda não foram revisadas.
 - **Sem dados operacionais:** identificadores internos da instância, e-mails,
   histórico de deduplicação e domínios/IPs da infraestrutura foram removidos do export.
-- **Repositório privado** no GitHub — não torne público sem decisão explícita do
-  mantenedor.
+- **Repositório público por decisão explícita do mantenedor** (visibilidade escolhida
+  para portfólio/recrutamento). Como o conteúdo é visível a qualquer pessoa, nenhum
+  segredo pode ser adicionado aqui — toda sanitização deve acontecer **antes** do
+  commit. Se a visibilidade voltar a ser privada, isso é uma mudança de política que
+  deve ser registrada.
 - **Produção intocada:** este repositório é um espelho documentado; nenhuma alteração
   aqui é aplicada automaticamente à instância em produção.
 
@@ -351,9 +354,18 @@ Boas práticas recomendadas ao mantenedor:
 
 ## Publicação no GitHub
 
-O repositório está preparado para ser publicado em um repositório **privado** chamado
-`shopee-afiliados-n8n`. Procedimento recomendado (o token nunca deve ser digitado em
-scripts, histórico do terminal ou neste arquivo):
+Repositório publicado em **modo público** (decisão explícita do mantenedor, para
+exibição em portfólio):
+
+- Nome: `shopee-afiliados-n8n`
+- Visibilidade: **pública**
+- Branch padrão: `main`
+
+> Como é público, todo commit aqui é permanente e visível a todos. Confira os
+> arquivos antes de cada push.
+
+Procedimento usado (o token nunca deve ser digitado em scripts, histórico do terminal
+ou neste arquivo):
 
 ```bash
 # 1. Instalar o GitHub CLI (uma vez)
@@ -368,6 +380,10 @@ gh auth status
 # 4. Publicar (a partir da pasta do projeto)
 cd shopee-afiliados-n8n
 gh repo create shopee-afiliados-n8n --private --source=. --remote=origin --push
+
+# 5. Se a decisão for manter público:
+gh repo edit <usuario>/shopee-afiliados-n8n --visibility public \
+  --accept-visibility-change-consequences
 ```
 
 Antes de qualquer `push`, rode uma varredura de segredos:
@@ -376,14 +392,19 @@ Antes de qualquer `push`, rode uma varredura de segredos:
 git ls-files | xargs grep -nE "bot[0-9]{6,}:|[A-Z0-9]{25,}|-----BEGIN|sk-[A-Za-z0-9]{20,}|gh[pousr]_[A-Za-z0-9]{20,}"
 ```
 
+Recomendação para repositório público: ativar **Secret scanning** e **Push protection**
+nas configurações → *Code security and analysis* do GitHub (gratuito em repositório
+público), para bloquear automaticamente o envio de credenciais.
+
 Regras:
 
-- O repositório deve permanecer **privado**. Torná-lo público exige decisão explícita
-  do mantenedor.
-- Nunca faça `push` de um export cru da produção: sanitize antes (procure por
-  `appSecret`, `appId`, `chatId` e `bot<id>:<token>`).
+- A visibilidade pública exige disciplina total de sanitização. Nunca faça `push` de
+  um export cru da produção: procure por `appSecret`, `appId`, `chatId` e
+  `bot<id>:<token>` antes de commitar.
 - Se um segredo já tiver sido commitado, removê-lo no próximo commit **não basta** —
-  revogue/rotacione a chave e limpe o histórico antes de qualquer `push`.
+  o conteúdo permanece no histórico (e num repo público já pode ter sido indexado).
+  Revogue/rotacione a chave imediatamente e limpe o histórico (ex.: `git filter-repo`)
+  antes de qualquer `push`.
 
 ---
 
