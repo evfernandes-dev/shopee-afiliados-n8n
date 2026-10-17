@@ -1,0 +1,79 @@
+# ============================================================
+# Segredos e variáveis de ambiente
+# ============================================================
+.env
+.env.*
+!.env.example
+*.env.local
+
+# ============================================================
+# Chaves privadas, certificados e arquivos de credencial
+# ============================================================
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+id_rsa*
+id_ed25519*
+*.ppk
+credentials.json
+.n8n/credentials/
+
+# ============================================================
+# Exportações brutas do n8n (ainda não sanitizadas)
+# Guarde as cópias cruas fora do repositório.
+# ============================================================
+exports/brutos/
+*.raw.json
+backups/
+*.backup.json
+
+# ============================================================
+# Banco de dados, execuções e logs do n8n
+# ============================================================
+database.sqlite
+database.sqlite-wal
+database.sqlite-shm
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.db
+*.db-wal
+*.db-shm
+n8nEventLog*.log
+*.log
+crash.journal
+
+# ============================================================
+# Segredos e artefatos da instância n8n (config, cache, binary)
+# ============================================================
+.n8n/
+.n8n*~
+storage/
+nodes/.bin/
+nodes/*.node.js
+
+# ============================================================
+# Dependências e artefatos gerados
+# ============================================================
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+dist/
+build/
+.cache/
+
+# ============================================================
+# Arquivos de sistema e editores
+# ============================================================
+.DS_Store
+Thumbs.db
+desktop.ini
+*.lnk
+.vscode/
+.idea/
+*.swp
