@@ -30,15 +30,15 @@ environment.
 
 ## Overview
 
-The automation polls the **Shopee Affiliate API** for electronics accessory deals and
-automatically posts the promotions it finds to a Telegram channel, applying
-deduplication rules so the same product is not repeated excessively. If any step fails,
-an error alert is sent to the same channel.
+The automation polls the **Shopee Affiliate API** for sports supplements and gym
+accessories deals and automatically posts the promotions it finds to a Telegram channel,
+applying deduplication rules so the same product is not repeated excessively. If any step
+fails, an error alert is sent to the same channel.
 
 What it does:
 
-1. Queries the Shopee affiliate API with dozens of product keywords.
-2. Filters the results, keeping only electronics accessory categories.
+1. Queries the Shopee affiliate API with fitness and supplement keywords.
+2. Filters the results, ensuring rigorous authenticity checks for sports supplements and verifiable promotions for gym accessories.
 3. Discards offers that were already published recently.
 4. Publishes up to 3 offers per run (every 30 minutes) with image, price, discount,
    shop and link.
@@ -70,16 +70,16 @@ PREP 1 — Montar request Shopee          (Code)
 Crypto                                  (Crypto — SHA256)
         │  computes the request signature
         ▼
-PREP 3 — productOfferV2 (eletronicos)   (HTTP Request)
+PREP 3 — productOfferV2 (suplementos)    (HTTP Request)
         │  POST to the Shopee affiliate GraphQL API
         ▼
 PREP 4 — Extrair ofertas                (Code)
         │  flattens the response (GraphQL aliases k0, k1, ...),
         │  interleaves the groups (round-robin) and escapes HTML for Telegram
         ▼
-PREP 5 — Filtrar eletronicos            (Code)
-        │  whitelist of technical terms (usb, hdmi, charger,
-        │  headset, mouse, keyboard...) + blocklist
+PREP 5 — Filtrar suplementos            (Code)
+        │  authenticity & brand checks for sports supplements (whey, creatina,
+        │  bcaa, pre-treino) + gym accessories filter + blocklist
         ▼
 PREP 6 — Deduplicar (itemId)            (Code)
         │  uses workflow static data to avoid repeats:
@@ -116,8 +116,7 @@ Enviar alerta (Telegram)                (Telegram — sendMessage)
   signature is the SHA256 hash of `appId + timestamp + payload + appSecret`.
 - **API limit:** 50 results per keyword; the PREP 1 node uses GraphQL *aliases*
   (`k0`, `k1`, ...) to query several niches in a single call.
-- **Category filter:** only electronics accessories pass through (cable, adapter,
-  headset, charger, mouse, keyboard, webcam, smartwatch, Arduino/ESP32 parts, etc.).
+- **Category filter:** only sports supplements (whey protein, creatine, BCAA, pre-workout, glutamine, multivitamin) and gym accessories (straps, knee sleeves, shaker bottles, gym bags, resistance bands) pass through, with rigorous authenticity checks and official/authorized vendor prioritization.
 - **Never invents prices:** published values are only the ones returned by the API.
 - **Deduplication state** lives in the workflow's *static data* inside n8n, not in
   this repository.
