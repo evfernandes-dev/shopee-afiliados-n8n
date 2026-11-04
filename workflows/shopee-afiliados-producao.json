@@ -4447,7 +4447,7 @@
             "projectId": "cfgcx63zi814jcbD",
             "project": {
                 "id": "cfgcx63zi814jcbD",
-                "name": "Emanuel emanuelvitorfn7@gmail.com <emanuelvitorfn7@gmail.com>",
+                "name": "Personal",
                 "type": "personal",
                 "icon": null,
                 "description": null,
@@ -4497,7 +4497,7 @@
             },
             {
                 "parameters": {
-                    "jsCode": "const appId = '18317071306'.trim();\nconst appSecret = 'IV7SUJ3YP3XJTMVDT3Y62C3DARIUBJLA'.trim();\n\nconst timestamp = Math.floor(Date.now() / 1000).toString();\n\n// Busca varios nichos de acessorios de eletronicos numa unica chamada (aliases GraphQL).\n// ATENCAO: o limite maximo da API e 50 por keyword.\nconst keywords = ['capa de celular', 'pelicula de celular', 'carregador', 'cabo usb', 'power bank', 'fone bluetooth', 'fone de ouvido', 'mouse', 'teclado', 'mousepad', 'suporte de celular', 'adaptador usb', 'hub usb', 'webcam', 'microfone', 'caixa de som', 'smartwatch', 'suporte notebook', 'controle videogame', 'roteador', 'pen drive', 'cartao de memoria', 'suporte de monitor', 'ring light', 'gimbal', 'dock station', 'cabo hdmi', 'pelicula de vidro', 'suporte de tablet', 'carregador sem fio', 'tripe celular', 'joystick', 'webcam full hd', 'leitor de cartao', 'adaptador hdmi'];\n\nconst campos = keywords.map((kw, i) =>\n  `k${i}: productOfferV2(keyword: \"${kw}\", page: 1, limit: 50) { nodes { itemId productName price shopName offerLink imageUrl priceDiscountRate } }`\n).join(' ');\n\nconst query = `{ ${campos} }`;\nconst payload = JSON.stringify({ query });\n\nconst textoParaAssinar = appId + timestamp + payload + appSecret;\n\nreturn [{ json: { appId, timestamp, payload, textoParaAssinar } }];"
+                    "jsCode": "const appId = 'SEU_APP_ID_AQUI'.trim();\nconst appSecret = 'SEU_APP_SECRET_AQUI'.trim();\n\nconst timestamp = Math.floor(Date.now() / 1000).toString();\n\n// Busca varios nichos de acessorios de eletronicos numa unica chamada (aliases GraphQL).\n// ATENCAO: o limite maximo da API e 50 por keyword.\nconst keywords = ['capa de celular', 'pelicula de celular', 'carregador', 'cabo usb', 'power bank', 'fone bluetooth', 'fone de ouvido', 'mouse', 'teclado', 'mousepad', 'suporte de celular', 'adaptador usb', 'hub usb', 'webcam', 'microfone', 'caixa de som', 'smartwatch', 'suporte notebook', 'controle videogame', 'roteador', 'pen drive', 'cartao de memoria', 'suporte de monitor', 'ring light', 'gimbal', 'dock station', 'cabo hdmi', 'pelicula de vidro', 'suporte de tablet', 'carregador sem fio', 'tripe celular', 'joystick', 'webcam full hd', 'leitor de cartao', 'adaptador hdmi'];\n\nconst campos = keywords.map((kw, i) =>\n  `k${i}: productOfferV2(keyword: \"${kw}\", page: 1, limit: 50) { nodes { itemId productName price shopName offerLink imageUrl priceDiscountRate } }`\n).join(' ');\n\nconst query = `{ ${campos} }`;\nconst payload = JSON.stringify({ query });\n\nconst textoParaAssinar = appId + timestamp + payload + appSecret;\n\nreturn [{ json: { appId, timestamp, payload, textoParaAssinar } }];"
                 },
                 "id": "c9ce258a-50d4-4196-bb83-45f8ff646aa2",
                 "name": "Build Shopee request",
@@ -4788,7 +4788,7 @@
             }
         },
         "nodeGroups": [],
-        "authors": "Emanuel emanuelvitorfn7@gmail.com",
+        "authors": "Emanuel Vitor",
         "name": "Version bbbf2b83",
         "description": "",
         "autosaved": false,

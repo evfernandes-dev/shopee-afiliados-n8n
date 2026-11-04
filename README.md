@@ -110,16 +110,16 @@ The workflow file is a sanitized export. Credentials were replaced with placehol
 5. Use a test chat/channel for the first execution.
 6. Activate the workflow when the output looks correct.
 
-The `.env.example` file documents the expected variable names. `.env` is ignored by Git and must never be committed with real values.
+The `.env.example` file documents the expected variable names for reference; n8n does not load it automatically. Fill the placeholders in the workflow nodes or use n8n credentials. `.env` is ignored by Git and must never be committed with real values.
 
 ---
 
 ## Security
 
-- The current workflow file contains no bot token, API key or app secret. Before treating the repository as sanitized, check the commit history and clean any secret that may have been committed.
-- The Telegram chat ID is replaced with `SEU_CHAT_ID_AQUI` in the exported workflow.
+- The current export uses placeholders (`SEU_APP_ID_AQUI`, `SEU_APP_SECRET_AQUI`, `SEU_CHAT_ID_AQUI`).
+- Older revisions or local exports may still contain real values. Do not reuse credentials from them, and rotate any credential that was ever committed.
 - `.gitignore` excludes `.env` files, private keys, certificates, databases, logs, n8n volumes and raw exports.
-- The production instance's addresses, domains and internal identifiers are omitted.
+- The production instance's server addresses and domains are omitted.
 - Before publishing a new export, search for `appId`, `appSecret`, `chatId`, `bot<id>:<token>` and other secrets.
 - If a real secret or private identifier is ever committed, rotate it and rewrite the history; removing it in a later commit is not enough.
 
